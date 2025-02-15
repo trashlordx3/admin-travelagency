@@ -1,0 +1,138 @@
+<div class="container p-4">
+    <h1 class="text-3xl font-bold tracking-tighter">Create Bookings</h1>
+    <div class="mt-4 bg-white p-6 rounded-lg shadow-lg">
+      <form action="#" method="POST">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- User ID -->
+          <div>
+            <label for="userId" class="block text-sm font-medium text-gray-700">User ID</label>
+            <input
+              type="text"
+              name="userId"
+              id="userId"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            />
+          </div>
+  
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input
+              type="phone"
+              name="phone"
+              id="phone"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            />
+          </div>
+  
+          <!-- Activity Dropdown -->
+          <div>
+            <label for="activity" class="block text-sm font-medium text-gray-700">Activity</label>
+            <select
+              name="activity"
+              id="activity"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="hiking">Hiking</option>
+              <option value="trekking">Trekking</option>
+              <option value="jungle">Jungle Safari</option>
+              <option value="camping">Camping</option>
+            </select>
+          </div>
+  
+          <!-- Destination Dropdown -->
+          <div>
+            <label for="destination" class="block text-sm font-medium text-gray-700">Destination</label>
+            <select
+              name="destination"
+              id="destination"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="paris">Paris</option>
+              <option value="new-york">New York</option>
+              <option value="tokyo">Tokyo</option>
+              <option value="sydney">Sydney</option>
+            </select>
+          </div>
+  
+          <!-- Duration Dropdown -->
+          <div>
+            <label for="duration" class="block text-sm font-medium text-gray-700">Duration</label>
+            <select
+              name="duration"
+              id="duration"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="1-day">1 Day</option>
+              <option value="2-days">2 Days</option>
+              <option value="3-days">3 Days</option>
+              <option value="1-week">1 Week</option>
+            </select>
+          </div>
+  
+          <!-- Time Dropdown -->
+          <div>
+            <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
+            <select
+              name="time"
+              id="time"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="morning">Morning</option>
+              <option value="afternoon">Afternoon</option>
+              <option value="evening">Evening</option>
+              <option value="night">Night</option>
+            </select>
+          </div>
+  
+          <!-- Cost Input -->
+          <div>
+            <label for="payment" class="block text-sm font-medium text-gray-700">Payment</label>
+            <select
+              name="payment"
+              id="payment"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="paid">Paid</option>
+              <option value="unpaid">Unpaid</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+            <select
+              name="status"
+              id="status"
+              class="mt-1 h-10 block w-full border border-gray-300 rounded-md shadow-sm focus:border-green-500 focus:ring-opacity-50 hover:border-green-500"
+            >
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Save and Cancel Buttons -->
+        <div class="mt-6 flex space-x-4">
+          <button
+            type="submit"
+            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Save
+          </button>
+          <button
+            type="button"
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

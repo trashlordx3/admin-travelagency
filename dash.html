@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .sidebar {
+      transition: all 0.3s ease-in-out;
+      width: 14rem;
+    }
+    
+    .sidebar.collapsed {
+      width: 4rem !important;
+    }
+    
+    .sidebar.collapsed .sidebar-label {
+      display: none;
+    }
+    
+    .sidebar.collapsed [id$="Arrow"] {
+      display: none;
+    }
+    
+    /* Remove the !important from dropdown display none */
+    .sidebar.collapsed [id$="Dropdown"] {
+      display: none;
+    }
+    
+    .sidebar.collapsed:hover {
+      width: 14rem !important;
+    }
+    
+    .sidebar.collapsed:hover .sidebar-label {
+      display: inline;
+    }
+    
+    .sidebar.collapsed:hover [id$="Arrow"] {
+      display: inline;
+    }
+    
+    /* Allow dropdowns to be visible on hover when not hidden */
+    .sidebar.collapsed:hover [id$="Dropdown"]:not(.hidden) {
+      display: block;
+    }
+    
+    /* Center icons when collapsed */
+    .sidebar.collapsed .flex.items-center {
+      justify-content: center;
+    }
+    
+    .sidebar.collapsed:hover .flex.items-center {
+      justify-content: flex-start;
+    }
+
+    /* Maintain icon visibility */
+    .sidebar.collapsed svg:not([id$="Arrow"]) {
+      margin-right: 0;
+    }
+    
+    .sidebar.collapsed:hover svg:not([id$="Arrow"]) {
+      margin-right: 0.75rem;
+    }
+
+    /* Add transition for dropdown */
+    [id$="Dropdown"] {
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
+
+    /* Ensure dropdown items are visible when not hidden */
+    [id$="Dropdown"]:not(.hidden) {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div>
+    <!-- Navbar -->
+    <nav class="bg-green-500 ">
+      <div class="container mx-auto flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <!-- Navbar Toggler -->
+          <button id="sidebarToggle" class="text-white focus:outline-none ml-2 mr-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <a href="dash.html" class="text-2xl font-bold font-sans tracking-tighter text-white">Admin Dashboard</a>
+        </div>
+        <div class="flex items-center space-x-6 mr-2">
+          <a href="#" class="font-semibold text-lg text-white">About</a>
+          <a href="#" class="font-semibold text-lg text-white">Contact</a>
+          <div class="relative">
+            <button id="profileToggle" class="focus:outline-none">
+              <img src="https://static.vecteezy.com/system/resources/previews/019/194/935/non_2x/global-admin-icon-color-outline-vector.jpg" alt="Admin Profile" class="w-10 h-10 rounded-full border-2 border-white">
+            </button>
+            <!-- Dropdown Menu -->
+            <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings</a>
+              <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar bg-gray-800 text-white w-56 space-y-6 py-7 px-2 fixed h-full transform -translate-x-full transition-all duration-300 ease-in-out group">
+      <nav class="space-y-2">
+        <div>
+          <button id="usersToggle" class="w-full text-left flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <span class="sidebar-label">Users</span>
+            </div>
+            <svg id="usersArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="usersDropdown" class="hidden pl-4 mt-2">
+            <a href="createUser.html" data-page="createUser.html" class="block py-2 px-4 rounded hover:bg-gray-700">Create User</a>
+            <a href="manageUser.html" data-page="manageUser.html" class="block py-2 px-4 rounded hover:bg-gray-700">List of Users</a>
+          </div>
+        </div>
+        <div>
+          <button id="bookingsToggle" class="w-full text-left flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span class="sidebar-label">Bookings</span>
+            </div>
+            <svg id="bookingsArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="bookingsDropdown" class="hidden pl-4 mt-2">
+            <a href="viewBooking.html" data-page="viewBooking.html" class="block py-2 px-4 rounded hover:bg-gray-700">All</a>
+            <a href="approved.html" data-page="approved.html" class="block py-2 px-4 rounded hover:bg-gray-700">Approved</a>
+            <a href="pending.html" data-page="pending.html" class="block py-2 px-4 rounded hover:bg-gray-700">Pending</a>
+            <a href="cancelled.html" data-page="cancelled.html" class="block py-2 px-4 rounded hover:bg-gray-700">Cancelled</a>
+          </div>
+        </div>
+        <div>
+          <button id="listingsToggle" class="w-full text-left flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              <span class="sidebar-label">Activities</span>
+            </div>
+            <svg id="listingsArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="listingsDropdown" class="hidden pl-4 mt-2">
+            <a href="activities.html" data-page="activities.html"class="block py-2 px-4 rounded hover:bg-gray-700">All Activities</a>
+            <a href="createActivities.html"data-page="createActivities.html" class="block py-2 px-4 rounded hover:bg-gray-700">Create</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Active</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Drafts</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Expired</a>
+          </div>
+        </div>
+        <div>
+          <button id="toursToggle" class="w-full text-left flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center">
+              <!-- <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg> -->
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 14v7M5 4.971v9.541c5.6-5.538 8.4 2.64 14-.086v-9.54C13.4 7.61 10.6-.568 5 4.97Z"/> 
+              </svg>
+              <span class="sidebar-label">Tour Listing</span>
+            </div>
+            <svg id="toursArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="toursDropdown" class="hidden pl-4 mt-2">
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Manage All Tours</a>
+            <a href="createTours.html" data-page="createTours.html"class="block py-2 px-4 rounded hover:bg-gray-700">Create Tours</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Edit Tours</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Delete Tours</a>
+          </div>
+        </div>
+
+        <div>
+          <button id="profilesToggle" class="w-full text-left flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span class="sidebar-label">Profile</span>
+            </div>
+            <svg id="profilesArrow" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div id="profilesDropdown" class="hidden pl-4 mt-2">
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">View Profiles</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Edit Profiles</a>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Change Password</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="ml-0 transition-all duration-300 ease-in-out">
+      <div class="p-6">
+        <h1 class="text-3xl font-bold">Welcome to the Admin Dashboard</h1>
+        <p class="mt-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita ipsa molestias pariatur fugit quae, totam voluptates, cumque, possimus est animi magnam a consectetur aliquid tempore minima nihil quis quibusdam alias!</p>
+        <div id="default-content" class="container grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <!-- Total Bookings Card -->
+          <div  class=" bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-800">Total Bookings</h2>
+                <p class="text-3xl font-bold mt-2">1,234</p>
+              </div>
+              <div class="bg-green-100 p-3 rounded-full">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Users Card -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-800">Total Users</h2>
+                <p class="text-3xl font-bold mt-2">567</p>
+              </div>
+              <div class="bg-blue-100 p-3 rounded-full">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function () {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const content = document.getElementById('mainContent');
+      let isCollapsed = false;
+
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('collapsed');
+        
+        // Adjust main content margin
+        if (sidebar.classList.contains('-translate-x-full')) {
+          content.classList.remove('ml-56');
+          content.classList.add('ml-0');
+        } else {
+          content.classList.remove('ml-0');
+          content.classList.add(isCollapsed ? 'ml-16' : 'ml-56');
+        }
+      });
+
+      // JavaScript to toggle the profile dropdown
+      const profileToggle = document.getElementById('profileToggle');
+      const profileDropdown = document.getElementById('profileDropdown');
+
+      profileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('hidden');
+      });
+
+      // Close profile dropdown when clicking outside
+      document.addEventListener('click', (event) => {
+        if (!profileToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
+          profileDropdown.classList.add('hidden');
+        }
+      });
+
+      function toggleDropdown(toggleId, dropdownId, arrowId) {
+        const toggle = document.getElementById(toggleId);
+        const dropdown = document.getElementById(dropdownId);
+        const arrow = document.getElementById(arrowId);
+
+        if (toggle && dropdown && arrow) {
+          toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the hidden class
+            dropdown.classList.toggle('hidden');
+            
+            // Rotate arrow
+            arrow.classList.toggle('rotate-180');
+            
+            // Close other dropdowns
+            const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
+            const allArrows = document.querySelectorAll('[id$="Arrow"]');
+            
+            allDropdowns.forEach(item => {
+              if (item.id !== dropdownId && !item.classList.contains('hidden')) {
+                item.classList.add('hidden');
+              }
+            });
+            
+            allArrows.forEach(item => {
+              if (item.id !== arrowId && item.classList.contains('rotate-180')) {
+                item.classList.remove('rotate-180');
+              }
+            });
+          });
+        }
+      }
+
+      // Set up all dropdowns
+      toggleDropdown('usersToggle', 'usersDropdown', 'usersArrow');
+      toggleDropdown('bookingsToggle', 'bookingsDropdown', 'bookingsArrow');
+      toggleDropdown('listingsToggle', 'listingsDropdown', 'listingsArrow');
+      toggleDropdown('toursToggle', 'toursDropdown', 'toursArrow');
+      toggleDropdown('profilesToggle', 'profilesDropdown', 'profilesArrow');
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', (event) => {
+        const isClickInside = event.target.closest('#sidebar');
+        if (!isClickInside) {
+          const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
+          const allArrows = document.querySelectorAll('[id$="Arrow"]');
+          
+          allDropdowns.forEach(dropdown => {
+            dropdown.classList.add('hidden');
+          });
+          
+          allArrows.forEach(arrow => {
+            arrow.classList.remove('rotate-180');
+          });
+        }
+      });
+
+      // const usersToggle = document.getElementById('usersToggle');
+      // const usersDropdown = document.getElementById('usersDropdown');
+      // const usersArrow = document.getElementById('usersArrow');
+
+      // usersToggle.addEventListener('click', () => {
+      //   usersDropdown.classList.toggle('hidden');
+      //   usersArrow.classList.toggle('rotate-180'); // Rotate the arrow
+      // });
+
+      // const bookingsToggle = document.getElementById('bookingsToggle');
+      // const bookingsDropdown = document.getElementById('bookingsDropdown');
+      // const bookingsArrow = document.getElementById('bookingsArrow');
+
+      // bookingsToggle.addEventListener('click', () => {
+      //   bookingsDropdown.classList.toggle('hidden');
+      //   bookingsArrow.classList.toggle('rotate-180'); // Rotate the arrow
+      // });
+
+      // const listingsToggle = document.getElementById('listingsToggle');
+      // const listingsDropdown = document.getElementById('listingsDropdown');
+      // const listingsArrow = document.getElementById('listingsArrow');
+
+      // listingsToggle.addEventListener('click', () => {
+      //   listingsDropdown.classList.toggle('hidden');
+      //   listingsArrow.classList.toggle('rotate-180'); // Rotate the arrow
+      // });
+
+      // const profilesToggle = document.getElementById('profilesToggle');
+      // const profilesDropdown = document.getElementById('profilesDropdown');
+      // const profilesArrow = document.getElementById('profilesArrow');
+
+      // profilesToggle.addEventListener('click', () => {
+      //   profilesDropdown.classList.toggle('hidden');
+      //   profilesArrow.classList.toggle('rotate-180'); // Rotate the arrow
+      // });
+      function initializeFormHandlers() {
+      // Image Preview Functionality
+        const imageInput = document.getElementById('activity-image');
+        if (imageInput) {
+          imageInput.addEventListener('change', function(e) {
+            const preview = document.getElementById('image-preview');
+            const file = e.target.files[0];
+            
+            if (file) {
+              const reader = new FileReader();
+              preview.classList.remove('hidden');
+              
+              reader.onload = function(e) {
+                preview.querySelector('img').src = e.target.result;
+              }
+              
+              reader.readAsDataURL(file);
+            } else {
+              preview.classList.add('hidden');
+            }
+          });
+        }
+      }
+
+      function showMessage(message, type = 'success') {
+        const container = document.getElementById('message-container');
+        container.innerHTML = `
+            <div class="message p-4 mb-4 rounded-lg ${type === 'success' ? 
+                'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                ${message}
+            </div>
+        `;
+        setTimeout(() => container.innerHTML = '', 3000);
+    }
+
+// Add form submission handler
+      document.addEventListener('submit', async (e) => {
+          if (e.target.matches('#activityForm')) {
+              e.preventDefault();
+              
+              const formData = new FormData(e.target);
+              
+              try {
+                  const response = await fetch('/admin/create-activity.php', {
+                      method: 'POST',
+                      body: formData
+                  });
+
+                  const result = await response.json();
+
+                  if (result.success) {
+                      showMessage('Activity created successfully!');
+                      e.target.reset();
+                      document.getElementById('image-preview').classList.add('hidden');
+                  } else {
+                      showMessage(result.message || 'Error creating activity', 'error');
+                  }
+              } catch (error) {
+                  showMessage('Network error - please try again', 'error');
+              }
+          }
+      });
+
+         // Load Content Dynamically
+      const loadContent = async (page) => {
+        const response = await fetch(page);
+        const html = await response.text();
+        content.innerHTML = html;
+
+        initializeFormHandlers();
+
+        // Initialize scripts for the loaded content
+        if (page === 'manageUser.html','viewBooking.html','approved.html','pending.html','cancelled.html','activities.html') {
+          initializeSearch();
+        }
+        };
+
+            // Add Event Listeners to Sidebar Links
+       const sidebarLinks = document.querySelectorAll('#sidebar a[data-page]');
+        sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = link.getAttribute('data-page');
+          loadContent(page);
+          history.pushState(null, null, page); // Update URL
+        });
+      });
+
+
+      // Handle Browser Back/Forward
+      window.addEventListener('popstate', () => {
+        const page = window.location.pathname.split('/').pop() || 'admin/dash.html';
+        loadContent(page);
+      });
+
+      const initializeSearch = () => {
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('tbody tr');
+
+        if (searchInput && tableRows.length > 0) {
+          searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            tableRows.forEach(row => {
+              const rowText = row.textContent.toLowerCase();
+              if (rowText.includes(searchTerm)) {
+                row.style.display = '';
+              } else {
+                row.style.display = 'none';
+              }
+            });
+          });
+        } else {
+          console.error("Search elements not found!");
+        }
+      };
+      
+      
+      document.getElementById('mainContent').addEventListener('click', (e) => {
+        const button = e.target.closest('[data-page]');
+        if (button) {
+          e.preventDefault();
+          const page = button.getAttribute('data-page');
+          loadContent(page); // Load the page dynamically
+          history.pushState(null, null, page); // Update URL
+        }
+       });
+
+       initializeFormHandlers();
+    });
+  </script>
+</body>
+</html>

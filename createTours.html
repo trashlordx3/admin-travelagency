@@ -1,0 +1,130 @@
+<!-- create-tour.html -->
+<div class="container p-4">
+    <h2 class="text-2xl font-bold mb-6">Create New Tour</h2>
+    <form class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Column -->
+        <div class="space-y-4">
+          <!-- Transportation -->
+          <div>
+            <label for="transportation" class="block text-sm font-medium text-gray-700">Transportation</label>
+            <input type="text" id="transportation" name="transportation" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+  
+          <!-- Accommodation -->
+          <div>
+            <label for="accomodation" class="block text-sm font-medium text-gray-700">Accommodation</label>
+            <input type="text" id="accomodation" name="accomodation" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+  
+          <!-- Departure From -->
+          <div>
+            <label for="departure_from" class="block text-sm font-medium text-gray-700">Departure From</label>
+            <input type="text" id="departure_from" name="departure_from" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+  
+          <!-- Best Season -->
+          <div>
+            <label for="best_season" class="block text-sm font-medium text-gray-700">Best Season</label>
+            <select id="best_season" name="best_season" 
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="">Select Season</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+              <option value="Autumn">Autumn</option>
+              <option value="Winter">Winter</option>
+            </select>
+          </div>
+  
+          <!-- Tour Type -->
+          <div>
+            <label for="tour_type" class="block text-sm font-medium text-gray-700">Tour Type</label>
+            <select id="tour_type" name="tour_type" 
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="">Select Tour Type</option>
+              <option value="1">Adventure</option>
+              <option value="2">Cultural</option>
+              <option value="3">Trekking</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="space-y-4">
+          <!-- Meals -->
+          <div>
+            <label for="meals" class="block text-sm font-medium text-gray-700">Meals</label>
+            <input type="text" id="meals" name="meals" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+  
+          <!-- Group Size -->
+          <div>
+            <label for="group_size" class="block text-sm font-medium text-gray-700">Group Size</label>
+            <select id="group_size" name="group_size" 
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="">Select Group Size</option>
+              <option value="1-5">1-5 People</option>
+              <option value="6-10">6-10 People</option>
+              <option value="11-15">11-15 People</option>
+            </select>
+          </div>
+  
+          <!-- Age Range -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="min_age" class="block text-sm font-medium text-gray-700">Minimum Age</label>
+              <input type="number" id="min_age" name="min_age" 
+                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            <div>
+              <label for="max_age" class="block text-sm font-medium text-gray-700">Maximum Age</label>
+              <input type="number" id="max_age" name="max_age" 
+                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+          </div>
+  
+          <!-- Language -->
+          <div>
+            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+            <input type="text" id="language" name="language" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+  
+          <!-- Fitness Level -->
+          <div>
+            <label for="fitness_level" class="block text-sm font-medium text-gray-700">Fitness Level</label>
+            <select id="fitness_level" name="fitness_level" 
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="">Select Fitness Level</option>
+              <option value="Easy">Easy</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Challenging">Challenging</option>
+            </select>
+          </div>
+  
+          <!-- Max Altitude -->
+          <div>
+            <label for="max_altitude" class="block text-sm font-medium text-gray-700">Max Altitude</label>
+            <input type="text" id="max_altitude" name="max_altitude" 
+                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Form Actions -->
+      <div class="mt-6 flex justify-end space-x-4">
+        <button type="button" onclick="history.back()" 
+                class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+          Cancel
+        </button>
+        <button type="submit" 
+                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
+          Create Tour
+        </button>
+      </div>
+    </form>
+  </div>
